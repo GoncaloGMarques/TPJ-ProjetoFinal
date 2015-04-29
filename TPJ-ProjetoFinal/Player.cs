@@ -37,7 +37,16 @@ namespace TPJ_ProjetoFinal
                 pressedKey = 1;
                 this.position.X -= 0.1f;
             }
+            if (state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.D))
+            {
+                pressedKey = 0;
+            }
             base.Update(gameTime);
+        }
+
+        public static int returnKey()
+        {
+            return pressedKey;
         }
     }
 }

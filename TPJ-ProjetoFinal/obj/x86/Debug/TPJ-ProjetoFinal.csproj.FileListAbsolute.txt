@@ -24,3 +24,4 @@ C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-Pro
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\obj\x86\Debug\TPJ-ProjetoFinal.exe
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\obj\x86\Debug\TPJ-ProjetoFinal.pdb
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\TimRunFront.png
+C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\TimStand.png

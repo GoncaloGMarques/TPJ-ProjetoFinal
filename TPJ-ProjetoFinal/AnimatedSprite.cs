@@ -11,7 +11,7 @@ namespace TPJ_ProjetoFinal
     public class AnimatedSprite : Sprite
     {
         // Variáveis
-        private int rows, columns;
+        public int rows, columns;
         private Point currentFrame;
         private float animationInterval = 1f / 35f;
         private float animationTimer = 0f;
@@ -19,8 +19,8 @@ namespace TPJ_ProjetoFinal
         // Construtor
         public AnimatedSprite(ContentManager content, String textureName, int rows, int columns) : base(content, textureName)
         {
-            this.rows = rows;
             this.columns = columns;
+            this.rows = rows;
             this.pixelSize.X = this.pixelSize.X / columns;
             this.pixelSize.Y = this.pixelSize.Y / rows;
             this.size = new Vector2(1f, (float)pixelSize.Y / (float)pixelSize.X);

@@ -45,6 +45,7 @@ namespace TPJ_ProjetoFinal
 
 
             scene.AddSprite(new Player(Content, "TimRunFront"));
+            scene.AddSprite1(new Player(Content, "TimStand"));
         }
 
         protected override void UnloadContent()

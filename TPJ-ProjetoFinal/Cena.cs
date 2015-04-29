@@ -12,12 +12,15 @@ namespace TPJ_ProjetoFinal
         // Variáveis
         public SpriteBatch spriteBatch;
         private List<Sprite> spriteList;
+        private List<Sprite> spriteList1;
+        int key;
 
         // Construtor
-        public Cena(SpriteBatch spriteBatch)
+        public Cena(SpriteBatch spriteBatch) 
         {
             this.SpriteBatch = spriteBatch;
             this.spriteList = new List<Sprite>();
+            this.spriteList1 = new List<Sprite>();
         }
 
         // Update
@@ -25,17 +28,33 @@ namespace TPJ_ProjetoFinal
         {
             foreach (var sprite in spriteList.ToList())
                 sprite.Update(gameTime);
+            foreach (var sprite in spriteList1.ToList())
+                sprite.Update(gameTime);
         }
 
         // Draw
         public void Draw(GameTime gameTime)
         {
-            if (spriteList.Count > 0)
+            key = Player.pressedKey;
+            if (key == 1 || key == 4)
             {
-                this.spriteBatch.Begin();
-                foreach (var sprite in spriteList)
-                    sprite.Draw(gameTime);
-                this.spriteBatch.End();
+                if (spriteList.Count > 0)
+                {
+                    this.spriteBatch.Begin();
+                    foreach (var sprite in spriteList)
+                        sprite.Draw(gameTime);
+                    this.spriteBatch.End();
+                }
+            }
+            if (key == 0)
+            {
+                if (spriteList1.Count > 0)
+                {
+                    this.spriteBatch.Begin();
+                    foreach (var sprite in spriteList1)
+                        sprite.Draw(gameTime);
+                    this.spriteBatch.End();
+                }
             }
         }
 
@@ -44,6 +63,12 @@ namespace TPJ_ProjetoFinal
         public void AddSprite(Sprite sprite)
         {
             this.spriteList.Add(sprite);
+            sprite.SetScene(this);
+        }
+
+        public void AddSprite1(Sprite sprite)
+        {
+            this.spriteList1.Add(sprite);
             sprite.SetScene(this);
         }
 

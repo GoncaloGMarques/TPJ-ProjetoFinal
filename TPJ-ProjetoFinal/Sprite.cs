@@ -8,7 +8,7 @@ using System.Text;
 
 namespace TPJ_ProjetoFinal
 {
-	public class Sprite
+	public class Sprite 
 	{
 		// Variáveis
 		protected ContentManager content;
@@ -26,10 +26,10 @@ namespace TPJ_ProjetoFinal
 		protected float radius;
 		protected Color[] pixels;
         public String textureName;
-        public int pressedKey;
+        public static int pressedKey;
 
 		// Construtor
-		public Sprite(ContentManager content, String textureName)
+        public Sprite(ContentManager content, String textureName) 
 		{
 			this.content = content;
 			this.texture = content.Load<Texture2D>(textureName);
@@ -51,6 +51,12 @@ namespace TPJ_ProjetoFinal
         {
             Rectangle pos = Camera.WorldSize2PixelRectangle(this.position, this.size);
             // scene.SpriteBatch.Draw(this.image, pos, Color.White);
+            if (pressedKey == 0)
+            {
+                scene.SpriteBatch.Draw(texture, pos, source, Color.White,
+                    this.rotation, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
+                    SpriteEffects.None, 0);
+            }
 
             if (pressedKey == 4)
             {
