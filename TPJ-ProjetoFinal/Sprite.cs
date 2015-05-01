@@ -29,7 +29,7 @@ namespace TPJ_ProjetoFinal
         public static int pressedKey;
 
 		// Construtor
-        public Sprite(ContentManager content, String textureName) 
+        public Sprite(ContentManager content, String textureName)
 		{
 			this.content = content;
 			this.texture = content.Load<Texture2D>(textureName);
@@ -64,11 +64,17 @@ namespace TPJ_ProjetoFinal
                     this.rotation, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
                     SpriteEffects.None, 0);
             }
-            if (pressedKey == 1)
+            else if (pressedKey == 1)
             {
                 scene.SpriteBatch.Draw(texture, pos, source, Color.White,
                     (float)(Math.PI), new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
                     SpriteEffects.FlipVertically, 0);
+            }
+            else if (pressedKey == 0)
+            {
+                scene.SpriteBatch.Draw(texture, pos, source, Color.White,
+                    this.rotation, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
+                    SpriteEffects.None, 0);
             }
         }
 

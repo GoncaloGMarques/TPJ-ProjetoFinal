@@ -12,9 +12,9 @@ namespace TPJ_ProjetoFinal
     {
         
         // Construtor
-        public Player(ContentManager content, String textureName) : base(content, textureName, 3, 9)
+        public Player(ContentManager content, String textureName)
+            : base(content, textureName, 2, 27)
         {
-
         }
 
         // Draw

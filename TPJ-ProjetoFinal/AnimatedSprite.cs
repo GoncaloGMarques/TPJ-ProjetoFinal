@@ -13,18 +13,19 @@ namespace TPJ_ProjetoFinal
         // Variáveis
         public int rows, columns;
         private Point currentFrame;
-        private float animationInterval = 1f / 35f;
+        private float animationInterval = 1f/35f;
         private float animationTimer = 0f;
 
         // Construtor
-        public AnimatedSprite(ContentManager content, String textureName, int rows, int columns) : base(content, textureName)
+        public AnimatedSprite(ContentManager content, String textureName, int rows, int columns)
+            : base(content, textureName)
         {
+            this.rows = rows;
             this.columns = columns;
             this.rows = rows;
             this.pixelSize.X = this.pixelSize.X / columns;
             this.pixelSize.Y = this.pixelSize.Y / rows;
             this.size = new Vector2(1f, (float)pixelSize.Y / (float)pixelSize.X);
-            this.currentFrame = Point.Zero;
         }
 
         // Update
@@ -51,14 +52,19 @@ namespace TPJ_ProjetoFinal
         // Passa para a próxima frame da spritesheet
         private void NextFrame()
         {
-            if (currentFrame.X < columns - 1)
-                currentFrame.X++;
-            else if (currentFrame.Y < rows - 1)
+            if (Player.pressedKey != 0)
+            {
+                currentFrame.Y = 1;
+                if (currentFrame.X < columns - 1)
+                    currentFrame.X++;
+                else
+                    currentFrame.X = 0;
+            }
+            else
             {
                 currentFrame.X = 0;
-                currentFrame.Y++;
+                currentFrame.Y = 0;
             }
-            else currentFrame = Point.Zero;
         }
 
         //public override void Update(GameTime gameTime)

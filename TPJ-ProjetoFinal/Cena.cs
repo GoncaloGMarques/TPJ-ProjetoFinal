@@ -20,7 +20,6 @@ namespace TPJ_ProjetoFinal
         {
             this.SpriteBatch = spriteBatch;
             this.spriteList = new List<Sprite>();
-            this.spriteList1 = new List<Sprite>();
         }
 
         // Update
@@ -28,34 +27,15 @@ namespace TPJ_ProjetoFinal
         {
             foreach (var sprite in spriteList.ToList())
                 sprite.Update(gameTime);
-            foreach (var sprite in spriteList1.ToList())
-                sprite.Update(gameTime);
         }
 
         // Draw
         public void Draw(GameTime gameTime)
         {
-            key = Player.pressedKey;
-            if (key == 1 || key == 4)
-            {
-                if (spriteList.Count > 0)
-                {
-                    this.spriteBatch.Begin();
-                    foreach (var sprite in spriteList)
-                        sprite.Draw(gameTime);
-                    this.spriteBatch.End();
-                }
-            }
-            if (key == 0)
-            {
-                if (spriteList1.Count > 0)
-                {
-                    this.spriteBatch.Begin();
-                    foreach (var sprite in spriteList1)
-                        sprite.Draw(gameTime);
-                    this.spriteBatch.End();
-                }
-            }
+            this.spriteBatch.Begin();
+            foreach (var sprite in spriteList)
+                sprite.Draw(gameTime);
+            this.spriteBatch.End();
         }
 
                

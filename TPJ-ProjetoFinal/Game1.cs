@@ -44,8 +44,8 @@ namespace TPJ_ProjetoFinal
             scene = new Cena(spriteBatch);
 
 
-            scene.AddSprite(new Player(Content, "TimRunFront"));
-            scene.AddSprite1(new Player(Content, "TimStand"));
+            scene.AddSprite(new Player(Content, "TimComplete"));
+
         }
 
         protected override void UnloadContent()
