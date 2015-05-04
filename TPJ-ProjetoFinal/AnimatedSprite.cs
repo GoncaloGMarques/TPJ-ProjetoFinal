@@ -12,7 +12,7 @@ namespace TPJ_ProjetoFinal
     {
         // Variáveis
         public int rows, columns;
-        private Point currentFrame;
+        public Point currentFrame;
         private float animationInterval = 1f/35f;
         private float animationTimer = 0f;
 
@@ -67,6 +67,22 @@ namespace TPJ_ProjetoFinal
             }
         }
 
+        public override void EnableCollisions()
+        {
+            this.HasCollisions = true;
+
+            this.radius = (float)Math.Sqrt(Math.Pow(size.X / 2, 2) +
+                                           Math.Pow(size.Y / 2, 2));
+
+            pixels = new Color[(int)(pixelSize.X * pixelSize.Y)];
+            image.GetData<Color>(0, new Rectangle(
+                    (int)(currentFrame.X * pixelSize.X),
+                    (int)(currentFrame.Y * pixelSize.Y),
+                    (int)pixelSize.X,
+                    (int)pixelSize.Y),
+                 pixels, 0,
+                (int)(pixelSize.X * pixelSize.Y));
+        }
         //public override void Update(GameTime gameTime)
         //{
         //    currentFrame++;

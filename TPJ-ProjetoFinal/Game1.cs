@@ -7,6 +7,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+
 #endregion
 
 namespace TPJ_ProjetoFinal
@@ -16,7 +22,10 @@ namespace TPJ_ProjetoFinal
         // Variáveis
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public Texture2D ground;
         Cena scene;
+
+
 
         public Game1() : base()
         {
@@ -30,7 +39,6 @@ namespace TPJ_ProjetoFinal
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
-
             Camera.SetGraphicsDeviceManager(graphics);
             Camera.SetTarget(Vector2.Zero);
             Camera.SetWorldWidth(10);
@@ -42,10 +50,9 @@ namespace TPJ_ProjetoFinal
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             scene = new Cena(spriteBatch);
-
-
             scene.AddSprite(new Player(Content, "TimComplete"));
-
+            Plataformas p = new Plataformas(Content);
+            scene.AddSprite(p);
         }
 
         protected override void UnloadContent()
@@ -59,7 +66,7 @@ namespace TPJ_ProjetoFinal
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             scene.Update(gameTime);
-
+            
             base.Update(gameTime);
         }
 
@@ -67,7 +74,6 @@ namespace TPJ_ProjetoFinal
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             scene.Draw(gameTime);
-
             base.Draw(gameTime);
         }
     }

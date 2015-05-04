@@ -12,7 +12,7 @@ namespace TPJ_ProjetoFinal
         // Variáveis
         public SpriteBatch spriteBatch;
         private List<Sprite> spriteList;
-        private List<Sprite> spriteList1;
+        private List<Sprite> backGround;
         int key;
 
         // Construtor
@@ -20,12 +20,15 @@ namespace TPJ_ProjetoFinal
         {
             this.SpriteBatch = spriteBatch;
             this.spriteList = new List<Sprite>();
+            this.backGround = new List<Sprite>();
         }
 
         // Update
         public void Update(GameTime gameTime)
         {
             foreach (var sprite in spriteList.ToList())
+                sprite.Update(gameTime);
+            foreach (var sprite in backGround.ToList())
                 sprite.Update(gameTime);
         }
 
@@ -34,6 +37,8 @@ namespace TPJ_ProjetoFinal
         {
             this.spriteBatch.Begin();
             foreach (var sprite in spriteList)
+                sprite.Draw(gameTime);
+            foreach (var sprite in backGround.ToList())
                 sprite.Draw(gameTime);
             this.spriteBatch.End();
         }
@@ -46,9 +51,9 @@ namespace TPJ_ProjetoFinal
             sprite.SetScene(this);
         }
 
-        public void AddSprite1(Sprite sprite)
+        public void AddBackGround(Sprite sprite)
         {
-            this.spriteList1.Add(sprite);
+            this.backGround.Add(sprite);
             sprite.SetScene(this);
         }
 
