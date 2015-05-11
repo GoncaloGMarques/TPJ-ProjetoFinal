@@ -36,7 +36,7 @@ namespace TPJ_ProjetoFinal
         protected override void Initialize()
         {
             // Definição do tamanho da janela
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferHeight = 800;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
             Camera.SetGraphicsDeviceManager(graphics);

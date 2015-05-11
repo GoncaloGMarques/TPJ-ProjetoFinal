@@ -14,6 +14,7 @@ namespace TPJ_ProjetoFinal
         private List<Sprite> spriteList;
         private List<Sprite> backGround;
         int key;
+        public static Vector2 collisionPoint;
 
         // Construtor
         public Cena(SpriteBatch spriteBatch) 
@@ -26,9 +27,9 @@ namespace TPJ_ProjetoFinal
         // Update
         public void Update(GameTime gameTime)
         {
-            foreach (var sprite in spriteList.ToList())
-                sprite.Update(gameTime);
             foreach (var sprite in backGround.ToList())
+                sprite.Update(gameTime);
+            foreach (var sprite in spriteList.ToList())
                 sprite.Update(gameTime);
         }
 
@@ -36,9 +37,9 @@ namespace TPJ_ProjetoFinal
         public void Draw(GameTime gameTime)
         {
             this.spriteBatch.Begin();
-            foreach (var sprite in spriteList)
-                sprite.Draw(gameTime);
             foreach (var sprite in backGround.ToList())
+                sprite.Draw(gameTime);
+            foreach (var sprite in spriteList)
                 sprite.Draw(gameTime);
             this.spriteBatch.End();
         }
@@ -64,7 +65,7 @@ namespace TPJ_ProjetoFinal
         }
 
         // Deteção de colisões de todas as sprites da cena
-        public bool Collides(Sprite sprite, out Sprite collided, out Vector2 collisionPoint)
+        public bool Collides(Sprite sprite, out Sprite collided)
         {
             bool collisionExists = false;
             // Parar "calar" o compilador
