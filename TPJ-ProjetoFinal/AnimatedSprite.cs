@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
 namespace TPJ_ProjetoFinal
@@ -16,9 +15,7 @@ namespace TPJ_ProjetoFinal
         public Point currentFrame;
         private float animationInterval = 1f/35f;
         private float animationTimer = 0f;
-        bool loopJump;
-        public bool isFalling;
-        public bool isJumping;
+
         // Construtor
         public AnimatedSprite(ContentManager content, String textureName, int rows, int columns)
             : base(content, textureName)
@@ -55,71 +52,18 @@ namespace TPJ_ProjetoFinal
         // Passa para a próxima frame da spritesheet
         private void NextFrame()
         {
-            if (loopJump == true)
+            if (Player.pressedKey != 0)
             {
-                if (isJumping)
-                {
-                    if (state.IsKeyDown(Keys.D))
-                    {
-                        currentFrame.Y = 3;
-                    }
-                    if (state.IsKeyDown(Keys.A))
-                    {
-                        currentFrame.Y = 4;
-                    }
-                    if (currentFrame.X < 9)
-                    {
-                        this.animationInterval = 1f / 30f;
-                        currentFrame.X++;
-                    }
-                }
+                currentFrame.Y = 1;
+                if (currentFrame.X < columns - 1)
+                    currentFrame.X++;
                 else
-                    if (!isFalling)
-                    {
-                        loopJump = false;
-                        animationInterval = 1f / 35f;
-                    }
-                    else
-                    {
-                        currentFrame.X = 9;
-                    }
+                    currentFrame.X = 0;
             }
             else
             {
-                if ((state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.D)) && state.IsKeyDown(Keys.Space))
-                {
-                    currentFrame.X = 0;
-                    loopJump = true;
-
-                }
-
-                else
-                {
-                    if (state.IsKeyDown(Keys.D))
-                    {
-                        currentFrame.Y = 1;
-                        if (currentFrame.X < columns - 1)
-                            currentFrame.X++;
-                        else
-                            currentFrame.X = 0;
-                    }
-                    else
-                    {
-                        if (state.IsKeyDown(Keys.A))
-                        {
-                            currentFrame.Y = 2;
-                            if (currentFrame.X < columns - 1)
-                                currentFrame.X++;
-                            else
-                                currentFrame.X = 0;
-                        }
-                        if (state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Space))
-                        {
-                            currentFrame.X = 0;
-                            currentFrame.Y = 0;
-                        }
-                    }
-                }
+                currentFrame.X = 0;
+                currentFrame.Y = 0;
             }
         }
 

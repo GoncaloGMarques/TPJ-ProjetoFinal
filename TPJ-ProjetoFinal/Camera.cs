@@ -66,10 +66,10 @@ namespace TPJ_ProjetoFinal
 
         public static Rectangle WorldSize2PixelRectangle(Vector2 position, Vector2 size) 
         { 
-            Camera.UpdateRatio();
+            Camera.UpdateRatio(); 
             Vector2 pixelPosition = WorldPoint2Pixels(position); 
 
-            int pixelWidth = (int)(size.X * Camera.ratio + .5f);
+            int pixelWidth = (int)(size.X * Camera.ratio + .5f); 
             int pixelHeight = (int)(size.Y * Camera.ratio + .5f); 
 
             return new Rectangle((int)pixelPosition.X, (int)pixelPosition.Y, pixelWidth, pixelHeight); 
