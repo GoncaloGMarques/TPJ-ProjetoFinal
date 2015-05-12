@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ using FarseerPhysics.Collision;
 
 namespace TPJ_ProjetoFinal
 {
-	public class Sprite 
-	{
+    public class Sprite
+    {
         public bool HasCollisions { protected set; get; }
 
         protected Texture2D image;
@@ -26,7 +27,8 @@ namespace TPJ_ProjetoFinal
         protected Rectangle? source = null;
         protected Color[] pixels;
         protected ContentManager cManager;
-        public static int pressedKey;
+        public KeyboardState state;
+        public Vector2 CollidePoint;
         public Sprite(ContentManager contents, String assetName)
         {
             this.cManager = contents;
@@ -95,7 +97,6 @@ namespace TPJ_ProjetoFinal
             // Se nao houver colisao, o ponto de colisao retornado e'
             // a posicao da Sprite (podia ser outro valor qualquer)
             collisionPoint = position;
-
             bool touches = false;
 
             int i = 0;
@@ -106,9 +107,8 @@ namespace TPJ_ProjetoFinal
                 {
                     if (GetColorAt(i, j).A > 0)
                     {
-                        Vector2 CollidePoint = ImagePixelToVirtualWorld(i, j);
                         Vector2 otherPixel = other.VirtualWorldPointToImagePixel(CollidePoint);
-
+                        CollidePoint = ImagePixelToVirtualWorld(i, j);
                         if (otherPixel.X >= 0 && otherPixel.Y >= 0 &&
                             otherPixel.X < other.pixelSize.X &&
                             otherPixel.Y < other.pixelSize.Y)
@@ -117,9 +117,9 @@ namespace TPJ_ProjetoFinal
                             {
                                 touches = true;
                                 collisionPoint = CollidePoint;
+                                Console.WriteLine(i);
                             }
                         }
-
                     }
                     j++;
                 }
@@ -148,24 +148,11 @@ namespace TPJ_ProjetoFinal
         {
             Rectangle pos = Camera.WorldSize2PixelRectangle(this.position, this.size);
             // scene.SpriteBatch.Draw(this.image, pos, Color.White);
-            if (Player.pressedKey == 4)
-            {
-                scene.SpriteBatch.Draw(this.image, pos, source, Color.White,
-                    this.rotation, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
-                    SpriteEffects.None, 0);
-            }
-            if(Player.pressedKey == 1)
-            {
-                scene.SpriteBatch.Draw(this.image, pos, source, Color.White,
-                (float)Math.PI, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
-                SpriteEffects.FlipVertically, 0);
-            }
-            if (Player.pressedKey == 0)
-            {
-                scene.SpriteBatch.Draw(this.image, pos, source, Color.White,
-                    this.rotation, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
-                    SpriteEffects.None, 0);
-            }
+
+            scene.SpriteBatch.Draw(this.image, pos, source, Color.White,
+                this.rotation, new Vector2(pixelSize.X / 2, pixelSize.Y / 2),
+                SpriteEffects.None, 0);
+
         }
 
         public virtual void SetRotation(float r)
@@ -173,7 +160,7 @@ namespace TPJ_ProjetoFinal
             this.rotation = r;
         }
 
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void Update(GameTime gameTime) { state = Keyboard.GetState(); }
 
         public virtual void Dispose()
         {
@@ -194,5 +181,10 @@ namespace TPJ_ProjetoFinal
             this.SetPosition(p);
             return this;
         }
-	}
+
+        public KeyboardState returnKey()
+        {
+            return state;
+        }
+    }
 }

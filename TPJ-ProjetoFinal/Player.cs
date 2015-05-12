@@ -10,22 +10,21 @@ namespace TPJ_ProjetoFinal
 {
     class Player : AnimatedSprite
     {
-        private bool isJumping;
         private float maxDistance, velocity;
         private Vector2 sourcePosition;
         private Vector2 direction;
-        bool isFalling;
+
         Sprite Collided;
-        Vector2 CollisionPoint;
         // Construtor
         public Player(ContentManager content, String textureName)
-            : base(content, textureName, 3, 27)
+            : base(content, textureName, 5, 27)
         {
             this.isJumping = false;
             this.isFalling = true;
-            this.position = new Vector2(0, 3);
+            this.position = new Vector2(-45f, -1.4f);
             this.maxDistance = 2f;
-            this.velocity = .7f;
+            this.velocity = .4f;
+            this.Scale(2f / 3f);
             this.direction = Vector2.Zero;
             this.EnableCollisions();
         }
@@ -45,57 +44,62 @@ namespace TPJ_ProjetoFinal
         // Update
         public override void Update(GameTime gameTime)
         {
-            KeyboardState state = Keyboard.GetState();
+
             if (state.IsKeyDown(Keys.D))
             {
-                pressedKey = 4;
-                this.position.X += 0.01f; 
+                this.position.X += 0.05f;
             }
+
             if (state.IsKeyDown(Keys.A))
             {
-                pressedKey = 1;
-                this.position.X -= 0.01f;
+                this.position.X -= 0.05f;
             }
-            if (state.IsKeyDown(Keys.Space))
+
+
+            if (state.IsKeyDown(Keys.Space) && isJumping == false && isFalling == false)
             {
-                pressedKey = 5;
-            }
-            if (state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.D)&& state.IsKeyUp(Keys.D))
-            {
-                pressedKey = 0;
-            }
-
-            if (!this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
-            {
-
-                this.position.Y -= 0.05f;
-                // this.isFalling = false;
-
-            }
-
-            if (state.IsKeyDown(Keys.Space) && isJumping == false)
                 Jump();
+            }
 
-            
-            if (isJumping)
+            if (!isJumping)
             {
-                this.isFalling = false;
-                if ((position - sourcePosition).Length() <= maxDistance)
+                // Gravidade puxa para baixo
+                this.position.Y -= 0.05f;
+
+                if (this.scene.Collides(this, out this.Collided))
                 {
-                    position = position + direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
-                    this.isFalling = true;
+                    isFalling = false;
+                    this.position.Y += 0.05f;
+                }
+            }
+            else
+            {
+                if (!this.scene.Collides(this, out this.Collided))
+                {
+                    if ((position - sourcePosition).Length() < maxDistance)
+                    {
+                        position = position + direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
+                    }
+                    else
+                    {
+                        if ((position - sourcePosition).Length() >= maxDistance)
+                        {
+                            position = position + direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
+                            isFalling = true;
+                            isJumping = false;
+                        }
+
+                    }
                 }
                 else
                 {
-                    position = position - direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
-                    if (position.Y <= sourcePosition.Y)
+                    if (isJumping)
                     {
-                        position.Y = 0f;
+                        position.Y -= 0.05f;
                         isJumping = false;
-                        this.isFalling = true;
+                        isFalling = true;
                     }
                 }
-
             }
             Camera.SetTarget(this.position);
             base.Update(gameTime);
@@ -104,13 +108,11 @@ namespace TPJ_ProjetoFinal
         public void Jump()
         {
             this.isJumping = true;
-            this.sourcePosition = position;
+            this.isFalling = false;
+            this.sourcePosition = this.position;
             this.direction = new Vector2((float)Math.Sin(rotation), (float)Math.Cos(rotation));
         }
 
-        public static int returnKey()
-        {
-            return pressedKey;
-        }
+
     }
 }
