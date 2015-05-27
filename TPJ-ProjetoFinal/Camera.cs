@@ -6,86 +6,74 @@ using System.Text;
 
 namespace TPJ_ProjetoFinal
 {
-    class Camera
+    static class Camera
     {
-        // Variáveis
-        private static GraphicsDeviceManager gDevManager;
-        private static float worldWidth;
-        private static float ratio;
-        private static Vector2 target; 
+        public static GraphicsDeviceManager gDevManager;
+        public static float worldWidth { private set; get; }
+        public static float ratio { private set; get; }
+        private static Vector2 target;
         private static int lastSeenPixelWidth = 0;
- 
-        // Define o GraphicsDeviceManager a usar
-        public static void SetGraphicsDeviceManager(GraphicsDeviceManager gDevManager) 
-        { 
-            Camera.gDevManager = gDevManager; 
-        } 
 
-        // Define a largura do mundo
-        public static void SetWorldWidth(float worldWidth) 
-        { 
-            Camera.worldWidth = worldWidth; 
-        } 
-
-        // Define o alvo da camera (centro)
-        public static void SetTarget(Vector2 target) 
-        { 
-            Camera.target = target; 
-        } 
-
-        /* Atualiza o ratio a ser utilizado pela câmara
-         * Depende do tamanho da janela de visualização do Windows */
-        private static void UpdateRatio() 
-        { 
-            if (Camera.lastSeenPixelWidth != Camera.gDevManager.PreferredBackBufferWidth) 
-            { 
-                Camera.ratio = Camera.gDevManager.PreferredBackBufferWidth / Camera.worldWidth; 
-                Camera.lastSeenPixelWidth = Camera.gDevManager.PreferredBackBufferWidth; 
-             } 
+        public static void SetGraphicsDeviceManager(GraphicsDeviceManager gdm)
+        {
+            Camera.gDevManager = gdm;
         }
 
-        // Converte um ponto virtual (metros) para um ponto real (pixels)
-        public static Vector2 WorldPoint2Pixels(Vector2 point) 
-        { 
-            Camera.UpdateRatio(); 
-            Vector2 pixelPoint = new Vector2(); 
-
-            // Calcula os pixels em relação ao alvo da camara (centro) 
-            pixelPoint.X = (int)((point.X - target.X) * Camera.ratio + 0.5f); 
-            pixelPoint.Y = (int)((point.Y - target.Y) * Camera.ratio + 0.5f); 
-
-            // Proteta os pixels calculados para o canto inferior esquerdo do ecra 
-            pixelPoint.X += Camera.lastSeenPixelWidth / 2; 
-            pixelPoint.Y += Camera.gDevManager.PreferredBackBufferHeight / 2; 
-
-            // Inverter as coordenadas Y 
-            pixelPoint.Y = Camera.gDevManager.PreferredBackBufferHeight - pixelPoint.Y; 
-
-            return pixelPoint; 
-        } 
-
-        public static Rectangle WorldSize2PixelRectangle(Vector2 position, Vector2 size) 
-        { 
-            Camera.UpdateRatio(); 
-            Vector2 pixelPosition = WorldPoint2Pixels(position); 
-
-            int pixelWidth = (int)(size.X * Camera.ratio + .5f); 
-            int pixelHeight = (int)(size.Y * Camera.ratio + .5f); 
-
-            return new Rectangle((int)pixelPosition.X, (int)pixelPosition.Y, pixelWidth, pixelHeight); 
-        } 
-
-        // Métodos get/set
-        public static float WorldWidth
+        public static void SetWorldWidth(float w)
         {
-            get { return worldWidth; }
-            private set { worldWidth = value; }
+            Camera.worldWidth = w;
         }
 
-        public static float Ratio
+        public static void SetTarget(Vector2 target)
         {
-            get { return ratio; }
-            private set { ratio = value; }
+            Camera.target = target;
+        }
+
+        private static void UpdateRatio()
+        {
+            if (Camera.lastSeenPixelWidth !=
+                Camera.gDevManager.PreferredBackBufferWidth)
+            {
+                Camera.ratio = Camera.gDevManager.PreferredBackBufferWidth /
+                    Camera.worldWidth;
+                Camera.lastSeenPixelWidth = Camera.gDevManager.PreferredBackBufferWidth;
+            }
+        }
+
+        public static Vector2 WorldPoint2Pixels(Vector2 point)
+        {
+            Camera.UpdateRatio();
+            Vector2 pixelPoint = new Vector2();
+
+            // Calcular pixeis em relacao ao target da camara (centro)
+            pixelPoint.X = (int)((point.X - target.X) * Camera.ratio + 0.5f);
+            pixelPoint.Y = (int)((point.Y - target.Y) * Camera.ratio + 0.5f);
+
+            // protetar pixeis calculados para o canto inferior esquerdo do ecra
+            pixelPoint.X += Camera.lastSeenPixelWidth / 2;
+            pixelPoint.Y += Camera.gDevManager.PreferredBackBufferHeight / 2;
+
+            // inverter coordenadas Y
+            pixelPoint.Y = Camera.gDevManager.PreferredBackBufferHeight - pixelPoint.Y;
+
+            return pixelPoint;
+        }
+
+        public static Rectangle WorldSize2PixelRectangle(Vector2 pos, Vector2 size)
+        {
+            Camera.UpdateRatio();
+
+            Vector2 pixelPos = WorldPoint2Pixels(pos);
+            int pixelWidth = (int)(size.X * Camera.ratio + .5f);
+            int pixelHeight = (int)(size.Y * Camera.ratio + .5f);
+
+            return new Rectangle((int)pixelPos.X, (int)pixelPos.Y, pixelWidth, pixelHeight);
+        }
+
+        public static Vector2 GetTarget()
+        {
+            return Camera.target;
         }
     }
 }
+

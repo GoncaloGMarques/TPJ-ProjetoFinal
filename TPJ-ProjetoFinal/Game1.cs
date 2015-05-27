@@ -36,8 +36,8 @@ namespace TPJ_ProjetoFinal
         protected override void Initialize()
         {
             // Definição do tamanho da janela
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 520;
+            graphics.PreferredBackBufferWidth = 800;
             graphics.ApplyChanges();
             Camera.SetGraphicsDeviceManager(graphics);
             Camera.SetTarget(Vector2.Zero);
@@ -51,8 +51,11 @@ namespace TPJ_ProjetoFinal
             spriteBatch = new SpriteBatch(GraphicsDevice);
             scene = new Cena(spriteBatch);
             scene.AddSprite(new Player(Content, "TimComplete"));
-            Plataformas p = new Plataformas(Content);
-            scene.AddSprite(p);
+            scene.AddSprite(new Plataformas (Content));
+            scene.AddSprite(new Inimigo(Content, "TEST-F", new Vector2(-90f, -3.15f)));
+            scene.AddSprite(new Inimigo(Content, "TEST-F", new Vector2(-89f, -3.15f)));
+            //SlidingBackground sand = new SlidingBackground(Content, "city");
+            //scene.AddBackground(sand);
         }
 
         protected override void UnloadContent()

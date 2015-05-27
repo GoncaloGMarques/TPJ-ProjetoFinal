@@ -10,22 +10,25 @@ namespace TPJ_ProjetoFinal
 {
     class Player : AnimatedSprite
     {
-        private bool isJumping;
         private float maxDistance, velocity;
         private Vector2 sourcePosition;
         private Vector2 direction;
-        bool isFalling;
+
         Sprite Collided;
         Vector2 CollisionPoint;
+        private float fireInterval = 0.5f;
+        private float fireCounter = 0f;
+
         // Construtor
         public Player(ContentManager content, String textureName)
-            : base(content, textureName, 3, 27)
+            : base(content, textureName, 5, 27)
         {
             this.isJumping = false;
             this.isFalling = true;
-            this.position = new Vector2(0, 3);
-            this.maxDistance = 2f;
-            this.velocity = .7f;
+            this.position = new Vector2(-91f, -1.5f);
+            this.maxDistance = 5f/2f;
+            this.velocity = .4f;
+            this.Scale(2f / 3f);
             this.direction = Vector2.Zero;
             this.EnableCollisions();
         }
@@ -45,72 +48,135 @@ namespace TPJ_ProjetoFinal
         // Update
         public override void Update(GameTime gameTime)
         {
-            KeyboardState state = Keyboard.GetState();
+            Console.WriteLine(positionColision.X+"-");
+            Console.WriteLine(CollisionPointLast.X);
             if (state.IsKeyDown(Keys.D))
             {
-                pressedKey = 4;
-                this.position.X += 0.01f; 
-            }
-            if (state.IsKeyDown(Keys.A))
-            {
-                pressedKey = 1;
-                this.position.X -= 0.01f;
-            }
-            if (state.IsKeyDown(Keys.Space))
-            {
-                pressedKey = 5;
-            }
-            if (state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.D)&& state.IsKeyUp(Keys.D))
-            {
-                pressedKey = 0;
-            }
-
-            if (!this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
-            {
-
-                this.position.Y -= 0.05f;
-                // this.isFalling = false;
-
-            }
-
-            if (state.IsKeyDown(Keys.Space) && isJumping == false)
-                Jump();
-
-            
-            if (isJumping)
-            {
-                this.isFalling = false;
-                if ((position - sourcePosition).Length() <= maxDistance)
+                this.position.X += 0.05f;
+                if (this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
                 {
-                    position = position + direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
-                    this.isFalling = true;
-                }
-                else
-                {
-                    position = position - direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
-                    if (position.Y <= sourcePosition.Y)
+                    if (this.Collided.nomedaSprite == "TEST-F")
                     {
-                        position.Y = 0f;
-                        isJumping = false;
-                        this.isFalling = true;
+                        this.Destroy();
+                    }
+                    else
+                    {
+                        if (CollisionPointLast != positionColision)
+                        {
+                            this.position.X -= 0.05f;
+                        }
                     }
                 }
-
             }
+
+            if (state.IsKeyDown(Keys.A))
+            {
+                this.position.X -= 0.05f;
+                if (this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
+                {
+                    if (this.Collided.nomedaSprite == "TEST-F")
+                    {
+                        this.Destroy();
+                    }
+                    else
+                    {
+                        if (CollisionPointLast != positionColision)
+                        {
+                            this.position.X += 0.05f;
+                        }
+                    }
+                }
+            }
+
+            if (state.IsKeyDown(Keys.Space) && isJumping == false && isFalling == false)
+            {
+                this.isJumping = true;
+                this.isFalling = false;
+                this.sourcePosition = this.position;
+                this.direction = new Vector2((float)Math.Sin(rotation), (float)Math.Cos(rotation));
+            }
+
+            mstate = Mouse.GetState();
+            Point mpos = mstate.Position;
+
+            Vector2 tpos = Camera.WorldPoint2Pixels(position);
+            float a = (float)mpos.Y - tpos.Y;
+            float l = (float)mpos.X - tpos.X;
+            float rot = (float)Math.Atan2(a, l);
+            rot += (float)Math.PI / 2f;
+
+            fireCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (mstate.LeftButton == ButtonState.Pressed && fireCounter >= fireInterval)
+            {
+                Vector2 pos = this.position
+                         + new Vector2((float)Math.Sin(rot) * size.Y,
+                                       (float)Math.Cos(rot) * size.Y);
+                Bala bullet = new Bala(cManager, pos, rot);
+                scene.AddSprite(bullet);
+                fireCounter = 0f;
+            }
+
+            Jump(gameTime);
             Camera.SetTarget(this.position);
+            CollisionPointLast = positionColision;
             base.Update(gameTime);
         }
 
-        public void Jump()
+        public void Jump(GameTime gameTime)
         {
-            this.isJumping = true;
-            this.sourcePosition = position;
-            this.direction = new Vector2((float)Math.Sin(rotation), (float)Math.Cos(rotation));
+            if (isJumping || !isJumping)
+            {
+                if (!isJumping)
+                {
+
+                    // Gravidade puxa para baixo
+                    this.position.Y -= 0.05f;
+
+                    if (this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
+                    {
+                        if (this.Collided.nomedaSprite == "Ground")
+                        {
+                            isFalling = false;
+                            this.position.Y += 0.05f;
+                        }
+                        if (this.Collided.nomedaSprite == "TEST-F")
+                        {
+                            this.Destroy();
+                        }
+                    }
+                }
+                else
+                {
+                    if (!this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
+                    {
+                        if ((position - sourcePosition).Length() < maxDistance)
+                        {
+                            position = position + direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
+                        }
+                        else
+                        {
+                            if ((position - sourcePosition).Length() >= maxDistance)
+                            {
+                                position = position + direction * velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
+                                isFalling = true;
+                                isJumping = false;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        if (isJumping)
+                        {
+                            position.Y -= 0.05f;
+                            isJumping = false;
+                            isFalling = true;
+                        }
+                    }
+                }
+            }
         }
 
-        public static int returnKey()
-        {
-            return pressedKey;
-        }
+
     }
 }

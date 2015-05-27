@@ -23,10 +23,12 @@ C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-Pro
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\obj\x86\Debug\TPJ-ProjetoFinal.csprojResolveAssemblyReference.cache
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\obj\x86\Debug\TPJ-ProjetoFinal.exe
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\obj\x86\Debug\TPJ-ProjetoFinal.pdb
-C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\FarseerPhysics MonoGame.dll
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\FarseerPhysics MonoGame.pdb
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\TimComplete.png
-C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\FarseerPhysics XNA.dll
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\FarseerPhysics XNA.pdb
 C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\Ground.png
-C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\CandyGirl.png
+C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\city-silhouette-twitter-background.jpg
+C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\city.png
+C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\TEST-F.png
+C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\pencil.png
+C:\Users\Gonçalo\Documents\Visual Studio 2012\Projects\TPJ-ProjetoFinal\TPJ-ProjetoFinal\bin\Windows\Debug\Content\explosion.png
