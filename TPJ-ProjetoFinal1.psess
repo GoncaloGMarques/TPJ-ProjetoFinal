@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VSPerformanceSession Version="1.00">
+  <Options>
+    <Solution>TPJ-ProjetoFinal.sln</Solution>
+    <CollectionMethod>Sampling</CollectionMethod>
+    <AllocationMethod>None</AllocationMethod>
+    <AddReport>true</AddReport>
+    <ResourceBasedAnalysisSelected>true</ResourceBasedAnalysisSelected>
+    <UniqueReport>Timestamp</UniqueReport>
+    <SamplingMethod>Cycles</SamplingMethod>
+    <CycleCount>10000000</CycleCount>
+    <PageFaultCount>10</PageFaultCount>
+    <SysCallCount>10</SysCallCount>
+    <SamplingCounter Name="" ReloadValue="00000000000f4240" DisplayName="" />
+    <RelocateBinaries>false</RelocateBinaries>
+    <HardwareCounters EnableHWCounters="false" />
+    <EtwSettings />
+    <PdhSettings>
+      <PdhCountersEnabled>false</PdhCountersEnabled>
+      <PdhCountersRate>500</PdhCountersRate>
+      <PdhCounters>
+        <PdhCounter>\Disco f&amp;amp;amp;amp;amp;amp;amp;amp;amp;#237;sico(_Total)\Comprimento m&amp;amp;amp;amp;amp;amp;amp;amp;amp;#233;dio da fila de disco</PdhCounter>
+        <PdhCounter>\Mem&amp;amp;amp;amp;amp;amp;amp;amp;amp;#243;ria\Pagina&amp;amp;amp;amp;amp;amp;amp;amp;amp;#231;&amp;amp;amp;amp;amp;amp;amp;amp;amp;#245;es/seg</PdhCounter>
+        <PdhCounter>\Processador(_Total)\% de tempo do processador</PdhCounter>
+      </PdhCounters>
+    </PdhSettings>
+  </Options>
+  <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+  <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
+  <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+  <PreinstrumentEvent>
+    <InstrEventExclude>false</InstrEventExclude>
+  </PreinstrumentEvent>
+  <PostinstrumentEvent>
+    <InstrEventExclude>false</InstrEventExclude>
+  </PostinstrumentEvent>
+  <Binaries>
+    <ProjBinary>
+      <Path>TPJ-ProjetoFinal\obj\x86\Debug\TPJ-ProjetoFinal.exe</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <ExternalWebsite>false</ExternalWebsite>
+      <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
+      <IsLocalJavascript>false</IsLocalJavascript>
+      <IsWindowsStoreApp>false</IsWindowsStoreApp>
+      <IsWWA>false</IsWWA>
+      <LaunchProject>true</LaunchProject>
+      <OverrideProjectSettings>false</OverrideProjectSettings>
+      <LaunchMethod>Executable</LaunchMethod>
+      <ExecutablePath>TPJ-ProjetoFinal\bin\Windows\Debug\TPJ-ProjetoFinal.exe</ExecutablePath>
+      <StartupDirectory>TPJ-ProjetoFinal\bin\Windows\Debug\</StartupDirectory>
+      <Arguments>
+      </Arguments>
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{9BD6081B-AEC6-4DDA-984E-FD66ADD143CA}|TPJ-ProjetoFinal\TPJ-ProjetoFinal.csproj</ProjRef>
+      <ProjPath>TPJ-ProjetoFinal\TPJ-ProjetoFinal.csproj</ProjPath>
+      <ProjName>TPJ-ProjetoFinal</ProjName>
+    </ProjBinary>
+  </Binaries>
+  <Reports>
+    <Report>
+      <Path>TPJ-ProjetoFinal150518(1).vspx</Path>
+    </Report>
+    <Report>
+      <Path>TPJ-ProjetoFinal150518(2).vspx</Path>
+    </Report>
+    <Report>
+      <Path>TPJ-ProjetoFinal150521.vspx</Path>
+    </Report>
+    <Report>
+      <Path>TPJ-ProjetoFinal150521(1).vspx</Path>
+    </Report>
+    <Report>
+      <Path>TPJ-ProjetoFinal150521(2).vspx</Path>
+    </Report>
+    <Report>
+      <Path>TPJ-ProjetoFinal150529.vspx</Path>
+    </Report>
+  </Reports>
+  <Launches>
+    <ProjBinary>
+      <Path>:PB:{9BD6081B-AEC6-4DDA-984E-FD66ADD143CA}|TPJ-ProjetoFinal\TPJ-ProjetoFinal.csproj</Path>
+    </ProjBinary>
+  </Launches>
+</VSPerformanceSession>

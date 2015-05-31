@@ -12,8 +12,7 @@ namespace TPJ_ProjetoFinal
         // Variáveis
         public SpriteBatch spriteBatch;
         private List<Sprite> spriteList;
-        private List<Sprite> backGround;
-        int key;
+        private List<SlidingBackground> backgrounds;
         public static Vector2 collisionPoint;
 
         // Construtor
@@ -21,29 +20,34 @@ namespace TPJ_ProjetoFinal
         {
             this.SpriteBatch = spriteBatch;
             this.spriteList = new List<Sprite>();
-            this.backGround = new List<Sprite>();
+            this.backgrounds = new List<SlidingBackground>();
         }
 
         // Update
         public void Update(GameTime gameTime)
         {
-            foreach (var sprite in backGround.ToList())
-                sprite.Update(gameTime);
             foreach (var sprite in spriteList.ToList())
                 sprite.Update(gameTime);
+            
         }
 
         // Draw
         public void Draw(GameTime gameTime)
         {
-            this.spriteBatch.Begin();
-            foreach (var sprite in backGround.ToList())
-                sprite.Draw(gameTime);
-            foreach (var sprite in spriteList)
-                sprite.Draw(gameTime);
-            this.spriteBatch.End();
-        }
+            if (spriteList.Count > 0 || backgrounds.Count > 0)
+            {
+                this.SpriteBatch.Begin();
+                // Desenhar os fundos!!!
+                foreach (var background in backgrounds)
+                    background.Draw(gameTime);
 
+                // Desenhar as sprites!!!
+                foreach (var sprite in spriteList)
+                    sprite.Draw(gameTime);
+
+                this.SpriteBatch.End();
+            }
+        }
 
         // Adiciona uma nova sprite à cena
         public void AddSprite(Sprite sprite)
@@ -52,10 +56,10 @@ namespace TPJ_ProjetoFinal
             sprite.SetScene(this);
         }
 
-        public void AddBackGround(Sprite sprite)
+        public void AddBackground(SlidingBackground b)
         {
-            this.backGround.Add(sprite);
-            sprite.SetScene(this);
+            this.backgrounds.Add(b);
+            b.SetScene(this);
         }
 
         // Remove uma sprite da cena
@@ -65,7 +69,7 @@ namespace TPJ_ProjetoFinal
         }
 
         // Deteção de colisões de todas as sprites da cena
-        public bool Collides(Sprite sprite, out Sprite collided)
+        public bool Collides(Sprite sprite, out Sprite collided, out Vector2 collisionPoint)
         {
             bool collisionExists = false;
             // Parar "calar" o compilador
@@ -89,6 +93,9 @@ namespace TPJ_ProjetoFinal
         public void Dispose()
         {
             foreach (var sprite in spriteList)
+                sprite.Dispose();
+
+            foreach (var sprite in backgrounds)
                 sprite.Dispose();
         }
 

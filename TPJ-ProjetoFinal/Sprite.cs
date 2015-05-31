@@ -16,7 +16,7 @@ namespace TPJ_ProjetoFinal
     public class Sprite
     {
         public bool HasCollisions { protected set; get; }
-
+        public string nomedaSprite; // distinguir sprites
         protected Texture2D image;
         public Vector2 position;
         protected float radius; // raio da "bounding box"
@@ -29,6 +29,10 @@ namespace TPJ_ProjetoFinal
         protected ContentManager cManager;
         public KeyboardState state;
         public Vector2 CollidePoint;
+        public Vector2 positionColision;
+        public Vector2 CollisionPointLast;
+        protected MouseState mstate;
+
         public Sprite(ContentManager contents, String assetName)
         {
             this.cManager = contents;
@@ -38,6 +42,7 @@ namespace TPJ_ProjetoFinal
             this.image = contents.Load<Texture2D>(assetName);
             this.pixelSize = new Vector2(image.Width, image.Height);
             this.size = new Vector2(1f, (float)image.Height / (float)image.Width);
+            this.nomedaSprite = assetName;
         }
 
         // Se houver colisao, collisionPoint é o ponto de colisão
@@ -116,8 +121,8 @@ namespace TPJ_ProjetoFinal
                             if (other.GetColorAt((int)otherPixel.X, (int)otherPixel.Y).A > 0)
                             {
                                 touches = true;
+                                positionColision = new Vector2(i, j);
                                 collisionPoint = CollidePoint;
-                                Console.WriteLine(i);
                             }
                         }
                     }
@@ -169,7 +174,40 @@ namespace TPJ_ProjetoFinal
 
         public virtual void Destroy()
         {
-            this.scene.RemoveSprite(this);
+            if (this.nomedaSprite == "pencil" || this.nomedaSprite == "bulletTestes")
+            {
+                AnimatedSprite explosion;
+                explosion = new AnimatedSprite(cManager, "explosion", 1, 12);
+                scene.AddSprite(explosion);
+                explosion.SetPosition(this.position);
+                explosion.Scale(.3f);
+                explosion.Loop = false;
+                this.scene.RemoveSprite(this);
+            }
+            if (this.nomedaSprite == "TEST-F")
+            {
+                AnimatedSprite explosion;
+                explosion = new AnimatedSprite(cManager, "explosion", 1, 12);
+                scene.AddSprite(explosion);
+                explosion.SetPosition(this.position);
+                explosion.Scale(.9f);
+                explosion.Loop = false;
+                this.scene.RemoveSprite(this);
+            }
+            if (this.nomedaSprite == "TimComplete")
+            {
+                AnimatedSprite explosion;
+                explosion = new AnimatedSprite(cManager, "explosion", 1, 12);
+                scene.AddSprite(explosion);
+                explosion.SetPosition(this.position);
+                explosion.Scale(.9f);
+                explosion.Loop = false;
+                this.scene.RemoveSprite(this);
+            }
+            if (this.nomedaSprite == "student1" || this.nomedaSprite == "student2" || this.nomedaSprite == "student3")
+            {
+                this.scene.RemoveSprite(this);
+            }
         }
 
         public void SetPosition(Vector2 position)

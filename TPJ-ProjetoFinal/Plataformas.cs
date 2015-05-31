@@ -13,8 +13,8 @@ namespace TPJ_ProjetoFinal
         public Plataformas(ContentManager content)
             : base(content, "Ground")
         {
-            this.position = new Vector2(0f, -0.83f);
-            this.Scale(100);
+            this.position = new Vector2(0f, -5.93f);
+            this.Scale(200);
             this.EnableCollisions();
         }
     }

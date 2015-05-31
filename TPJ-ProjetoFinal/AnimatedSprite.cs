@@ -19,6 +19,8 @@ namespace TPJ_ProjetoFinal
         bool loopJump;
         public bool isFalling;
         public bool isJumping;
+
+        public bool Loop { get; set; }
         // Construtor
         public AnimatedSprite(ContentManager content, String textureName, int rows, int columns)
             : base(content, textureName)
@@ -29,6 +31,7 @@ namespace TPJ_ProjetoFinal
             this.pixelSize.X = this.pixelSize.X / columns;
             this.pixelSize.Y = this.pixelSize.Y / rows;
             this.size = new Vector2(1f, (float)pixelSize.Y / (float)pixelSize.X);
+            Loop = true;
         }
 
         // Update
@@ -55,68 +58,78 @@ namespace TPJ_ProjetoFinal
         // Passa para a próxima frame da spritesheet
         private void NextFrame()
         {
-            if (loopJump == true)
+            if (this.nomedaSprite == "explosion")
             {
-                if (isJumping)
-                {
-                    if (state.IsKeyDown(Keys.D))
-                    {
-                        currentFrame.Y = 3;
-                    }
-                    if (state.IsKeyDown(Keys.A))
-                    {
-                        currentFrame.Y = 4;
-                    }
-                    if (currentFrame.X < 9)
-                    {
-                        this.animationInterval = 1f / 30f;
-                        currentFrame.X++;
-                    }
-                }
-                else
-                    if (!isFalling)
-                    {
-                        loopJump = false;
-                        animationInterval = 1f / 35f;
-                    }
-                    else
-                    {
-                        currentFrame.X = 9;
-                    }
+                currentFrame.X++;
             }
-            else
+            if (this.nomedaSprite == "TimComplete")
             {
-                if ((state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.D)) && state.IsKeyDown(Keys.Space))
+                if (loopJump == true)
                 {
-                    currentFrame.X = 0;
-                    loopJump = true;
-
-                }
-
-                else
-                {
-                    if (state.IsKeyDown(Keys.D))
+                    if (isJumping)
                     {
-                        currentFrame.Y = 1;
-                        if (currentFrame.X < columns - 1)
-                            currentFrame.X++;
-                        else
-                            currentFrame.X = 0;
-                    }
-                    else
-                    {
+                        if (state.IsKeyDown(Keys.D))
+                        {
+                            currentFrame.Y = 3;
+                        }
                         if (state.IsKeyDown(Keys.A))
                         {
-                            currentFrame.Y = 2;
+                            currentFrame.Y = 4;
+                        }
+                        if (currentFrame.X < 9)
+                        {
+                            this.animationInterval = 1f / 30f;
+                            currentFrame.X++;
+                        }
+                    }
+                    else
+                        if (!isFalling)
+                        {
+                            loopJump = false;
+                            animationInterval = 1f / 35f;
+                        }
+                        else
+                        {
+                            currentFrame.X = 9;
+                        }
+                }
+                else
+                {
+                    if ((state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.D)) && state.IsKeyDown(Keys.Space))
+                    {
+                        currentFrame.X = 0;
+                        loopJump = true;
+
+                    }
+
+                    else
+                    {
+                        if (state.IsKeyDown(Keys.D))
+                        {
+                            currentFrame.Y = 1;
                             if (currentFrame.X < columns - 1)
                                 currentFrame.X++;
                             else
                                 currentFrame.X = 0;
                         }
-                        if (state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Space))
+                        else
                         {
-                            currentFrame.X = 0;
-                            currentFrame.Y = 0;
+                            if (state.IsKeyDown(Keys.A))
+                            {
+                                currentFrame.Y = 2;
+                                if (currentFrame.X < columns - 1)
+                                    currentFrame.X++;
+                                else
+                                    currentFrame.X = 0;
+                            }
+                            else
+                            {
+                                if (state.IsKeyUp(Keys.A) && state.IsKeyUp(Keys.D) && state.IsKeyUp(Keys.Space))
+                                {
+                                    currentFrame.X = 0;
+                                    currentFrame.Y = 0;
+                                }
+                            }
                         }
                     }
                 }
@@ -139,28 +152,5 @@ namespace TPJ_ProjetoFinal
                  pixels, 0,
                 (int)(pixelSize.X * pixelSize.Y));
         }
-        //public override void Update(GameTime gameTime)
-        //{
-        //    currentFrame++;
-        //    if (currentFrame == totalFrames)
-        //        currentFrame = 0;
-
-        //    base.Update(gameTime);
-        //}
-        ////Usar esta função para desenhar (spriteBatch, coordenadas)
-        //public void Draw(SpriteBatch spriteBatch, Vector2 location)
-        //{
-        //    int width = texture.Width / columns;
-        //    int height = texture.Height / rows;
-        //    int row = (int)((float)currentFrame / (float)columns);
-        //    int column = currentFrame % columns;
-
-        //    Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-        //    Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
-
-        //    //spriteBatch.Begin();
-        //    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-        //    //spriteBatch.End();
-        //}
     }
 }
