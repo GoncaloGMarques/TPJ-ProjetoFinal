@@ -121,7 +121,7 @@ namespace TPJ_ProjetoFinal
                             if (other.GetColorAt((int)otherPixel.X, (int)otherPixel.Y).A > 0)
                             {
                                 touches = true;
-                                positionColision = new Vector2(i, j);
+                                positionColision = new Vector2(i, j);// posicao da colisao na imagem(pixeis)
                                 collisionPoint = CollidePoint;
                             }
                         }

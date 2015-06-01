@@ -63,18 +63,17 @@ namespace TPJ_ProjetoFinal
         public override void Update(GameTime gameTime)
         {
             positionSent = this.position;
-            Console.WriteLine(position.X + "-");
-            Console.WriteLine(position.Y);
-            if (state.IsKeyDown(Keys.Right))
+            // apenas para debug
+            if (state.IsKeyDown(Keys.L))
             { this.position.X += 0.1f; }
-            if (state.IsKeyDown(Keys.Left))
+            if (state.IsKeyDown(Keys.J))
             { this.position.X -= 0.1f; }
-            if (state.IsKeyDown(Keys.Up))
+            if (state.IsKeyDown(Keys.I))
             { this.position.Y += 0.1f; }
-            if (state.IsKeyDown(Keys.Down))
+            if (state.IsKeyDown(Keys.K))
             { this.position.Y -= 0.1f; }
 
-            if (Player.alunosSalvos == 3)
+            if (Player.alunosSalvos == 3)// salva os tres alunos, volta ao inicio
             {
                 jogoGanho.Play();
                 jogo.recomecar();
@@ -164,7 +163,7 @@ namespace TPJ_ProjetoFinal
 
             Jump(gameTime);
             Camera.SetTarget(this.position);
-            CollisionPointLast = positionColision;
+            CollisionPointLast = positionColision;// guarda a posicao na sprite da ultima colisao
             base.Update(gameTime);
         }
 

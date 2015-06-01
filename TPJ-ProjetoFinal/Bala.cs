@@ -18,6 +18,7 @@ namespace TPJ_ProjetoFinal
         Vector2 CollisionPoint;
         String SpriteChamada;
         Game1 jogo;
+        SoundEffect boo;
 
         public Bala(ContentManager cManager, String textureName, 
                       Vector2 sourcePosition, float rotation, String spriteQueChamou, Game1 game1)
@@ -31,12 +32,13 @@ namespace TPJ_ProjetoFinal
             this.SpriteChamada = spriteQueChamou;
             this.direction = new Vector2((float)Math.Sin(rotation),
                                          (float)Math.Cos(rotation));
+            boo = cManager.Load<SoundEffect>("boo");
             this.EnableCollisions();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (SpriteChamada == "TEST-F")
+            if (SpriteChamada == "TEST-F")// se a sprite que chamou isto foi um inimigo entao ele dispara
             {
                 position = position + direction * velocity *
                   (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -48,8 +50,9 @@ namespace TPJ_ProjetoFinal
 
                 if (this.scene.Collides(this, out this.Collided, out this.CollisionPoint))
                 {
-                    if (this.Collided.nomedaSprite == "TimComplete")
+                    if (this.Collided.nomedaSprite == "TimComplete")// se chocar com a personagem começa o jogo de novo
                     {
+                        boo.Play();
                         this.Destroy();
                         this.Collided.Destroy();
                         this.jogo.recomecar();

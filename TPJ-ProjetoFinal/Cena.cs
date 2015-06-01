@@ -11,6 +11,7 @@ namespace TPJ_ProjetoFinal
     {
         // Variáveis
         public SpriteBatch spriteBatch;
+        // Lista sprites
         private List<Sprite> spriteList;
         private List<SlidingBackground> backgrounds;
         public static Vector2 collisionPoint;
@@ -37,11 +38,11 @@ namespace TPJ_ProjetoFinal
             if (spriteList.Count > 0 || backgrounds.Count > 0)
             {
                 this.SpriteBatch.Begin();
-                // Desenhar os fundos!!!
+                // Desenhar os fundos
                 foreach (var background in backgrounds)
                     background.Draw(gameTime);
 
-                // Desenhar as sprites!!!
+                // Desenhar as sprites
                 foreach (var sprite in spriteList)
                     sprite.Draw(gameTime);
 
@@ -49,7 +50,7 @@ namespace TPJ_ProjetoFinal
             }
         }
 
-        // Adiciona uma nova sprite à cena
+        // Adiciona uma nova sprite
         public void AddSprite(Sprite sprite)
         {
             this.spriteList.Add(sprite);
@@ -99,7 +100,6 @@ namespace TPJ_ProjetoFinal
                 sprite.Dispose();
         }
 
-        // Métodos get/set
         public SpriteBatch SpriteBatch
         {
             get { return spriteBatch; }

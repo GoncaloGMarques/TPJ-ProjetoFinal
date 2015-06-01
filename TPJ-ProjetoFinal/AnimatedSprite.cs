@@ -58,11 +58,11 @@ namespace TPJ_ProjetoFinal
         // Passa para a próxima frame da spritesheet
         private void NextFrame()
         {
-            if (this.nomedaSprite == "explosion")
+            if (this.nomedaSprite == "explosion")//distinguir qual sprite é que se trata
             {
                 currentFrame.X++;
             }
-            if (this.nomedaSprite == "TimComplete")
+            if (this.nomedaSprite == "TimComplete")// dependendo das teclas presionadas pelo jogador este metodo muda para as frames necessarias
             {
                 if (loopJump == true)
                 {

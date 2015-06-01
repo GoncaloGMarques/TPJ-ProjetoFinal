@@ -38,9 +38,8 @@ namespace TPJ_ProjetoFinal
         {
             if (this.fire == true)
             {
-                if (Math.Abs(this.position.X - Player.positionSent.X) < 5)
+                if (Math.Abs(this.position.X - Player.positionSent.X) < 5)// se a distancia entre o jogador e o inimigo for menor que 5 ele dispara
                 {
-                    Console.WriteLine(this.position.X - Player.positionSent.X);
                     if (this.position.X - Player.positionSent.X > 0)
                     {
                         fireCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -49,7 +48,6 @@ namespace TPJ_ProjetoFinal
                             Vector2 pos = this.position
                                      + new Vector2((float)Math.Sin(rot) * size.Y,
                                                    (float)Math.Cos(rot) * size.Y);
-                            Console.WriteLine(this.nomedaSprite);
                             Bala bullet = new Bala(cManager, "bulletTestes", new Vector2(pos.X-2f, pos.Y), -rot, this.nomedaSprite, jogo);
 
                             scene.AddSprite(bullet);
@@ -65,7 +63,6 @@ namespace TPJ_ProjetoFinal
                             Vector2 pos = this.position
                                      + new Vector2((float)Math.Sin(rot) * size.Y,
                                                    (float)Math.Cos(rot) * size.Y);
-                            Console.WriteLine(this.nomedaSprite);
                             Bala bullet = new Bala(cManager, "bulletTestes", pos, rot, this.nomedaSprite,jogo);
 
                             scene.AddSprite(bullet);
